@@ -1,0 +1,53 @@
+## “易数”
+
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+using namespace std;
+
+void int2two(int n, vector<int> &res){
+    int a;
+    a = n % 2;
+    n = n >> 1;
+    if(n != 0){
+        int2two(n,res);
+    }
+    res.push_back(a);
+}
+
+int main(){
+    int t = 0;
+    cin >> t;
+    vector<int> input;
+    vector<int> res;
+    vector<int> r;
+    while(t--){
+        int n = 0;
+        cin >> n;
+        if(n != 0){
+            int temp = 0;
+            temp = n % 10;
+            input.push_back(temp);
+            n /= 10;
+        }
+        reverse(input.begin(), input.end());
+        for(int i = 0; i < input.size(); i++){
+        	int2two(input[i],res);
+        	r.insert(r.end(),res.begin(),res.end());
+    	}
+        reverse(res.begin(), res.end());
+        int slow = 0,fast = slow + 1;
+        for(; slow < r.size() && fast < r.size(); fast++){
+            if(r[slow] != r[fast]){
+                r[++slow] = r[fast];
+            }
+        }
+        for(int i = 0; i < slow + 1; i++){
+            cout << r[i];
+        }
+        cout << endl;
+    }
+    return 0;
+}
+```
